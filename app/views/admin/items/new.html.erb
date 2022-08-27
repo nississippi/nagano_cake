@@ -1,2 +1,12 @@
-<h1>Admin::Items#new</h1>
-<p>Find me in app/views/admin/items/new.html.erb</p>
+<h1>商品新規登録</h1>
+
+<%= form_with model: @item, url: new_admin_item_path do |f| %>
+  <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+  <div class="input-group mb-3 mt-4">
+
+    <%= f.text_field :name, class:"form-control", placeholder:"商品名" %>
+  </div>
+  <%= f.text_area :introduction, class:"form-control", rows:"8", placeholder:"ここに説明文を記述します" %>
+  <hr>
+  <%= f.submit '新規登録', class:"btn btn-lg btn-block btn-info mt-4" %>
+<% end %>
