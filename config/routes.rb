@@ -18,11 +18,11 @@ Rails.application.routes.draw do
     get 'orders/complete'
     get 'customers/my_page' => 'customers#show'
     get 'customers/information/edit' => 'customers#edit'
-    
+
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     resources :cart_items, only: [:index, :update, :create, :destroy]
-    
+
     resources :items, only: [:index, :show]
   end
 
