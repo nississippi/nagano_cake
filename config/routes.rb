@@ -1,52 +1,31 @@
 Rails.application.routes.draw do
+
   namespace :admin do
-    get 'orders/show'
+    get '' => 'homes#top'
+    resources :items, except: [:destroy]
+    resources :orders, only: [:show, :update]
+    resources :order_details, only: [:update]
+    resources :customers, only: [:index, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
   end
-  namespace :public do
-    get 'addresses/index'
-    get 'addresses/edit'
-  end
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  end
-  namespace :admin do
-    get 'genres/index'
-    get 'genres/edit'
-  end
-  namespace :admin do
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
-  end
-  namespace :admin do
-    get 'homes/top'
-  end
-  namespace :public do
-    get 'orders/new'
-    get 'orders/confirm'
+
+  scope module: :public do
+    root to: "homes#top"
+    get 'about' => 'homes#about', as: 'about'
+    resources :addresses, except: [:new, :show]
+    resources :orders, only: [:new, :create, :index, :show]
+    post 'orders/confirm'
     get 'orders/complete'
-    get 'orders/index'
-    end
-  namespace :public do
-    get 'customers/show'
-    get 'customers/edit'
+    get 'customers/my_page' => 'customers#show'
+    get 'customers/information/edit' => 'customers#edit'
+    
     get 'customers/unsubscribe'
     get 'customers/withdraw'
+    resources :cart_items, only: [:index, :update, :create, :destroy]
+    
+    resources :items, only: [:index, :show]
   end
-  namespace :public do
-    get 'cart_items/index'
-  end
-  namespace :public do
-    get 'items/index'
-    get 'items/show'
-  end
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
+
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: 'admin/sessions'
   }
