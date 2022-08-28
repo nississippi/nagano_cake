@@ -1,5 +1,16 @@
 <h1>商品新規登録</h1>
 
+<div class="error-explanation">
+  <% if @item.errors.any? %>
+    <h3><%= @item.errors.count %>errors prohibited this obj from being saved:</h3>
+    <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
 <%= form_with model: @item, url: admin_items_path do |f| %>
   <%= f.label :'商品画像' %>
   <%= f.file_field :image, accept: "image/*", class: "w-100" %>
@@ -7,6 +18,8 @@
   <%= f.text_field :name, class:"form-control", placeholder:"商品名" %>
   <%= f.label :'商品説明' %>
   <%= f.text_area :introduction, class:"form-control", rows:"8", placeholder:"ここに説明文を記述します" %>
+  <%= f.label :'税抜価格' %>
+  <%= f.text_field :price, class:"form-control", placeholder:"1000" %>円
   <%= f.label :'ジャンル' %>
   <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => true %>
   <%= f.radio_button :is_active, :true %>
