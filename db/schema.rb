@@ -62,13 +62,13 @@ ActiveRecord::Schema.define(version: 2022_08_27_094209) do
   end
 
   create_table "cart_items", force: :cascade do |t|
-    t.integer "item_id_id", null: false
-    t.integer "customer_id_id", null: false
+    t.integer "item_id", null: false
+    t.integer "customer_id", null: false
     t.integer "amount", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["customer_id_id"], name: "index_cart_items_on_customer_id_id"
-    t.index ["item_id_id"], name: "index_cart_items_on_item_id_id"
+    t.index ["customer_id"], name: "index_cart_items_on_customer_id"
+    t.index ["item_id"], name: "index_cart_items_on_item_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2022_08_27_094209) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "customer_id_id", null: false
+    t.integer "customer_id", null: false
     t.string "shipping_name", null: false
     t.string "shipping_postal_code", null: false
     t.string "shipping_address", null: false
@@ -130,14 +130,14 @@ ActiveRecord::Schema.define(version: 2022_08_27_094209) do
     t.integer "order_status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["customer_id_id"], name: "index_orders_on_customer_id_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "cart_items", "customer_ids"
-  add_foreign_key "cart_items", "item_ids"
+  add_foreign_key "cart_items", "customers"
+  add_foreign_key "cart_items", "items"
   add_foreign_key "order_details", "items"
   add_foreign_key "order_details", "orders"
-  add_foreign_key "orders", "customer_ids"
+  add_foreign_key "orders", "customers"
 end
