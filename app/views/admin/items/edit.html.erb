@@ -1,2 +1,30 @@
-<h1>Admin::Items#edit</h1>
-<p>Find me in app/views/admin/items/edit.html.erb</p>
+<h1>商品編集</h1>
+
+<div class="error-explanation">
+  <% if @item.errors.any? %>
+    <h3><%= @item.errors.count %>errors prohibited this obj from being saved:</h3>
+    <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<%= form_with model: @item, url: admin_item_path(@item.id) do |f| %>
+  <%= f.label :'商品画像' %>
+  <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+  <%= f.label :'商品名' %>
+  <%= f.text_field :name, class:"form-control", placeholder:"商品名" %>
+  <%= f.label :'商品説明' %>
+  <%= f.text_area :introduction, class:"form-control", rows:"8", placeholder:"ここに説明文を記述します" %>
+  <%= f.label :'税抜価格' %>
+  <%= f.text_field :price, class:"form-control", placeholder:"1000" %>円
+  <%= f.label :'ジャンル' %>
+  <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => true %>
+  <%= f.radio_button :is_active, :true %>
+  <%= f.label :is_active, "販売中" %>
+  <%= f.radio_button :is_active, :false %>
+  <%= f.label :is_active, "販売停止中" %>
+  <%= f.submit '編集する', class:"btn btn-lg btn-block btn-info mt-4" %>
+<% end %>

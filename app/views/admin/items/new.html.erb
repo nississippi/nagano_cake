@@ -23,8 +23,8 @@
   <%= f.label :'ジャンル' %>
   <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => true %>
   <%= f.radio_button :is_active, :true %>
-  <%= f.label :is_active, "販売中", {value: :true, style: "display: inline-block;"} %>
+  <%= f.label :is_active, "販売中" %>
   <%= f.radio_button :is_active, :false %>
-  <%= f.label :is_active, "販売停止中", {value: :false, style: "display: inline-block;"} %>
+  <%= f.label :is_active, "販売停止中" %>
   <%= f.submit '新規登録', class:"btn btn-lg btn-block btn-info mt-4" %>
 <% end %>
