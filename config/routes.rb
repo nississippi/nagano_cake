@@ -18,7 +18,6 @@ Rails.application.routes.draw do
     get 'orders/complete'
     get 'customers/my_page' => 'customers#show'
     get 'customers/information/edit' => 'customers#edit'
-
     get 'customers/unsubscribe'
     get 'customers/withdraw'
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'cart_items_destroy_all'
