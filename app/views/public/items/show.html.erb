@@ -6,8 +6,9 @@
 <%= @item.introduction %>
 <%= (@item.price * 1.1).floor %>
 
-<%= form_with model: @item, url: cart_items_path do |f| %>
+<%= form_with model: @cart_item do |f| %>
+
   <%= f.hidden_field :item_id, :value => @item.id %>
-  <%= f.select :amount, *[1..10] %>
+  <%= f.select :amount, *[1..10], :prompt => true%>
   <%= f.submit 'カートに入れる', class:"btn btn-lg btn-block btn-info mt-4" %>
 <% end %>

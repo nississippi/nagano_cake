@@ -9,5 +9,5 @@ class Customer < ApplicationRecord
   has_many :addresses
 
   validates :last_name, :last_name_kana, :first_name, :first_name_kana,
-    :postal_code, :address, :telephone_number, :is_deleted, presence: true
+    :postal_code, :address, :telephone_number, presence: true
 end

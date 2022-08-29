@@ -1,2 +1,31 @@
-<h1>Public::CartItems#index</h1>
-<p>Find me in app/views/public/cart_items/index.html.erb</p>
+<h1>ショッピングカート</h1>
+<%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete, class:"btn btn-sm btn-danger" %>
+<table class="table table-hover table-inverse">
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>単価(税込)</th>
+      <th>数量</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart_items.each do |cart_item| %>
+      <tr>
+        <td><%= link_to cart_item.item.name, item_path(cart_item.item_id) %></td>
+        <td><%= cart_item.item.with_tax_price %></td>
+        <td>
+          <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
+            <%= f.select :amount, *[1..10], :prompt => cart_item.amount %>
+            <%= f.submit '変更', class:"btn btn-lg btn-block btn-info mt-4" %>
+          <% end %>
+        </td>
+        <td><%= cart_item.subtotal %></td>
+        <td><%= link_to "削除", cart_item_path(cart_item), method: :delete, class:"btn btn-sm btn-danger" %></td>
+      </tr>
+      <% @total += cart_item.subtotal %>
+    <% end %>
+    <tr><td>合計金額<%= @total %>円</td></tr>
+  </tbody>
+</table>
+
