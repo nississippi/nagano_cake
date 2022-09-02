@@ -25,6 +25,32 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
+
+    if params[:order][:select_address] == "0"
+      @order.shipping_postal_code = current_customer.postal_code
+      @order.shipping_address = current_customer.address
+      @order.shipping_name = current_customer.last_name + current_customer.first_name
+    elsif params[:order][:select_address] == "1"
+      #配送先を１件も登録していない場合に備えた条件分岐が必要
+      #findメソッドで見つからない場合エラーが返ってくる
+      if current_customer.addresses.exists?
+        @address = Address.find(params[:order][:address_id])
+        @order.shipping_postal_code = @address.postal_code
+        @order.shipping_address = @address.address
+        @order.shipping_name = @address.name
+      else
+        render :new
+      end
+    elsif params[:order][:select_address] == "2"
+      @address = Address.new(address_params)
+      if not @address.save
+        render :new
+      end
+    else
+      render :new
+    end
+
+    redirect_to orders_confirm_path
   end
 
   def complete
@@ -40,6 +66,10 @@ class Public::OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:shipping_name, :shipping_address, :shipping_postal_code,
-    :billing_amount, :payment,)
+    :billing_amount, :payment)
+  end
+
+  def address_params
+    params.require(:address).permit(:postal_code, :address, :name)
   end
 end
