@@ -1,2 +1,45 @@
-<h1>Public::Orders#confirm</h1>
-<p>Find me in app/views/public/orders/confirm.html.erb</p>
+<h1>注文情報確認</h1>
+<table>
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>単価（税込）</th>
+      <th>数量</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cart_items.each do |cart| %>
+      <tr>
+        <td><%= cart.item.name %></td>
+        <td><%= cart.item.with_tax_price %></td>
+        <td><%= cart.amount %></td>
+        <td><%= cart.subtotal %></td>
+      </tr>
+      <% @total += cart.subtotal %>
+    <% end %>
+  </tbody>
+</table>
+
+<table>
+  <tr>
+    <th>送料</th>
+    <td>800</td>
+  </tr>
+  <tr>
+    <th>商品合計</th>
+    <td><%= @total %></td>
+  </tr>
+  <tr>
+    <th>請求金額</th>
+    <td><%= @total + 800 %></td>
+  </tr>
+</table>
+
+<p>支払方法</p>
+<p><%= @order.payment_i18n %></p>
+
+<p>お届け先</p>
+<p><%= @order.shipping_address_display %></p>
+
+<%= link_to "注文を確定する", orders_complete_path %>

@@ -10,4 +10,7 @@ class Order < ApplicationRecord
   validates :shipping_name, :shipping_address, :shipping_postal_code, :billing_amount, :payment,
   presence: true
 
+  def shipping_address_display
+    "〒" + shipping_postal_code + " " + shipping_address + " " + shipping_name
+  end
 end

@@ -18,7 +18,7 @@
     <%= f.radio_button :select_address, 1 %>
     <%= f.label "登録済住所から選択" %>
     <%= f.select :address_id,
-    options_from_collection_for_select(current_customer.addresses.all, :id, :name) %>
+    options_from_collection_for_select(current_customer.addresses.all, :id, :address_display) %>
   </div>
 
   <div>

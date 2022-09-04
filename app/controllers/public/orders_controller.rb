@@ -3,29 +3,10 @@ class Public::OrdersController < ApplicationController
     @order = Order.new
   end
 
-  def create
-    @order = Order.new(order_params)
-    @order.customer_id = current_customer.id
-    cart_items = current_customer.cart_items.all
-    if @order.save
-      cart_items.each do |cart|
-        order_detail = OrderDetail.new
-        order_detail.item_id = cart.item_id
-        order_detail.order_id = @order.id
-        order_detail.tax_included_price = cart.item.with_tax_price
-        order_detail.amount = cart.amount
-        order_detail.save
-      end
-      redirect_to orders_confirm_path
-      cart_items.destroy_all
-    else
-      render :new
-    end
-  end
 
   def confirm
     @order = Order.new(order_params)
-
+    @order.customer_id = current_customer.id
     if params[:order][:select_address] == "0"
       @order.shipping_postal_code = current_customer.postal_code
       @order.shipping_address = current_customer.address
@@ -38,19 +19,38 @@ class Public::OrdersController < ApplicationController
         @order.shipping_postal_code = @address.postal_code
         @order.shipping_address = @address.address
         @order.shipping_name = @address.name
-      else
-        render :new
       end
     elsif params[:order][:select_address] == "2"
-      @address = Address.new(address_params)
-      if not @address.save
-        render :new
+      @address_new = Address.new
+      @order.shipping_postal_code = @address.postal_code
+      @order.shipping_address = @address.address
+      @order.shipping_name = @address.name
+    end
+    @cart_items = current_customer.cart_items.all
+    @total = 0
+  end
+
+  def create
+    @order = Order.new(order_params)
+    if @order.save
+      @address_new = Address.new(address_params)
+      @address_new.customer_id = current_customer.id
+      @address_new.save
+      @cart_items = current_customer.cart_items.all
+      @cart_items.each do |cart|
+        order_detail = OrderDetail.new
+        order_detail.item_id = cart.item_id
+        order_detail.order_id = @order.id
+        order_detail.tax_included_price = cart.item.with_tax_price
+        order_detail.amount = cart.amount
+        order_detail.save
       end
+      current_customer.cart_items.destroy_all
+      redirect_to orders_complete_path
     else
       render :new
     end
 
-    redirect_to orders_confirm_path
   end
 
   def complete

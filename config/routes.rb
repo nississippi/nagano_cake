@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     get 'about' => 'homes#about', as: 'about'
     resources :addresses, except: [:new, :show]
     resources :orders, only: [:new, :create, :index, :show]
-    post 'orders/confirm'
-    get 'orders/complete'
+    post 'orders/confirm' => 'orders#confirm'
+    get 'orders/complete' => 'orders#complete'
     get 'customers/my_page' => 'customers#show'
     get 'customers/information/edit' => 'customers#edit'
     get 'customers/unsubscribe'
