@@ -42,4 +42,7 @@
 <p>お届け先</p>
 <p><%= @order.shipping_address_display %></p>
 
-<%= link_to "注文を確定する", orders_complete_path %>
+<%= form_with model: @order, url: orders_path, method: :post do |f| %>
+  <%= f.hidden_field :billing_amount, :value => @total + 800 %>
+  <%= f.submit '注文を確定する' %>
+<% end %>
