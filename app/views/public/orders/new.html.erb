@@ -25,11 +25,11 @@
     <%= f.radio_button :select_address, 2 %>
     <%= f.label "新しいお届け先" %>
     <%= f.label :'郵便番号（ハイフンなし）' %>
-    <%= f.text_field :postal_code, class:"form-contol", placeholder:"郵便番号" %>
+    <%= f.text_field :shipping_postal_code, class:"form-contol", placeholder:"郵便番号" %>
     <%= f.label :'住所' %>
-    <%= f.text_field :address, class:"form-contol", placeholder:"住所" %>
+    <%= f.text_field :shipping_address, class:"form-contol", placeholder:"住所" %>
     <%= f.label :'宛名' %>
-    <%= f.text_field :name, class:"form-control", placeholder:"宛名" %>
+    <%= f.text_field :shipping_name, class:"form-control", placeholder:"宛名" %>
   </div>
 
     <%= f.submit '確認画面へ進む', class:"btn btn-lg btn-block btn-info mt-4" %>

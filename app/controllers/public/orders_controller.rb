@@ -6,8 +6,9 @@ class Public::OrdersController < ApplicationController
 
 
   def confirm
-    @order = Order.new(order_params)
-    @order.customer_id = current_customer.id
+    @order = current_customer.orders.new(order_params)
+    @order.postage = 800
+    @cart_items = current_customer.cart_items
     if params[:order][:select_address] == "0"
       @order.shipping_postal_code = current_customer.postal_code
       @order.shipping_address = current_customer.address
@@ -22,8 +23,10 @@ class Public::OrdersController < ApplicationController
         @order.shipping_name = @address.name
       end
     elsif params[:order][:select_address] == "2"
-      @address_new = Address.new(address_params)
-      @address_new.customer_id = current_customer.id
+      @address_new = current_customer.addresses.new(address_params)
+      @address_new.postal_code = params[:order][:shipping_postal_code]
+      @address_new.address = params[:order][:shipping_address]
+      @address_new.name = params[:order][:shipping_name]
       if  @address_new.save
         @order.shipping_postal_code = @address_new.postal_code
         @order.shipping_address = @address_new.address
@@ -32,26 +35,27 @@ class Public::OrdersController < ApplicationController
         render :new
       end
     end
-    @cart_items = current_customer.cart_items.all
     @total = 0
   end
 
   def create
-    @order = Order.new(order_params)
+    @order = current_customer.orders.new(order_params)
+    @order.postage = 800
     if @order.save
-      @cart_items = current_customer.cart_items.all
-      @cart_items.each do |cart|
-        order_detail = OrderDetail.new
-        order_detail.item_id = cart.item_id
-        order_detail.order_id = @order.id
-        order_detail.tax_included_price = cart.item.with_tax_price
-        order_detail.amount = cart.amount
-        order_detail.save
-      end
-      current_customer.cart_items.destroy_all
+      cart_items = current_customer.cart_items.all
+        cart_items.each do |cart|
+          order_detail = OrderDetail.new
+          order_detail.item_id = cart.item_id
+          order_detail.order_id = @order.id
+          order_detail.tax_included_price = cart.item.with_tax_price
+          order_detail.amount = cart.amount
+          order_detail.save
+        end
+      cart_items.destroy_all
       redirect_to orders_complete_path
     else
       render :new
+
     end
 
   end

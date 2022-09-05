@@ -32,7 +32,7 @@
   </tr>
   <tr>
     <th>請求金額</th>
-    <td><%= @total + 800 %></td>
+    <td><%= @total + @order.postage %></td>
   </tr>
 </table>
 
@@ -43,6 +43,9 @@
 <p><%= @order.shipping_address_display %></p>
 
 <%= form_with model: @order, url: orders_path, method: :post do |f| %>
+  <%= f.hidden_field :shipping_name, :value => @order.shipping_name %>
+  <%= f.hidden_field :shipping_address, :value => @order.shipping_address %>
+  <%= f.hidden_field :shipping_postal_code, :value => @order.shipping_postal_code %>
   <%= f.hidden_field :billing_amount, :value => @total + 800 %>
   <%= f.submit '注文を確定する' %>
 <% end %>
