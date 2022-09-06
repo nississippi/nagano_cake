@@ -1,7 +1,7 @@
 class Public::OrdersController < ApplicationController
   def new
-    @order = Order.new
-    @address_new = Address.new
+    @order = current_customer.orders.new
+    @address_new = current_customer.addresses.new
   end
 
 
@@ -28,6 +28,12 @@ class Public::OrdersController < ApplicationController
       @order.shipping_address = params[:order][:shipping_address]
       @order.shipping_name = params[:order][:shipping_name]
     end
+    #情報に不足があれば入力ページに戻す
+    #saveメソッドは
+    if not  @order.shipping_postal_code.presence && @order.shipping_address.presence && 
+      @order.shipping_name.presence
+      redirect_to new_order_path
+    end
     @total = 0
   end
 
@@ -47,9 +53,10 @@ class Public::OrdersController < ApplicationController
 
         if params[:order][:select_address] == "2"
           @address_new = current_customer.addresses.new
+          #すでにorder_paramsを通過した@orderを使って値を取得するのでaddress_paramsはなくてもいい
           @address_new.postal_code = @order.shipping_postal_code
-          @address_new.address = params[:order][:shipping_address]
-          @address_new.name = params[:order][:shipping_name]
+          @address_new.address = @order.shipping_address
+          @address_new.name = @order.shipping_name
           @address_new.save
         end
       cart_items.destroy_all
