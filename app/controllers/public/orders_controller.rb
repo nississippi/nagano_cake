@@ -9,6 +9,7 @@ class Public::OrdersController < ApplicationController
     @order = current_customer.orders.new(order_params)
     @order.postage = 800
     @cart_items = current_customer.cart_items
+    @select_address = params[:order][:select_address].to_i
     if params[:order][:select_address] == "0"
       @order.shipping_postal_code = current_customer.postal_code
       @order.shipping_address = current_customer.address
@@ -23,17 +24,9 @@ class Public::OrdersController < ApplicationController
         @order.shipping_name = @address.name
       end
     elsif params[:order][:select_address] == "2"
-      @address_new = current_customer.addresses.new(address_params)
-      @address_new.postal_code = params[:order][:shipping_postal_code]
-      @address_new.address = params[:order][:shipping_address]
-      @address_new.name = params[:order][:shipping_name]
-      if  @address_new.save
-        @order.shipping_postal_code = @address_new.postal_code
-        @order.shipping_address = @address_new.address
-        @order.shipping_name = @address_new.name
-      else
-        render :new
-      end
+      @order.shipping_postal_code =params[:order][:shipping_postal_code]
+      @order.shipping_address = params[:order][:shipping_address]
+      @order.shipping_name = params[:order][:shipping_name]
     end
     @total = 0
   end
@@ -50,6 +43,14 @@ class Public::OrdersController < ApplicationController
           order_detail.tax_included_price = cart.item.with_tax_price
           order_detail.amount = cart.amount
           order_detail.save
+        end
+
+        if params[:order][:select_address] == "2"
+          @address_new = current_customer.addresses.new
+          @address_new.postal_code = @order.shipping_postal_code
+          @address_new.address = params[:order][:shipping_address]
+          @address_new.name = params[:order][:shipping_name]
+          @address_new.save
         end
       cart_items.destroy_all
       redirect_to orders_complete_path
@@ -77,7 +78,4 @@ class Public::OrdersController < ApplicationController
     :billing_amount, :payment)
   end
 
-  def address_params
-    params.require(:address).permit(:postal_code, :address, :name)
-  end
 end
