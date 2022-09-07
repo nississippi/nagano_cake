@@ -12,7 +12,7 @@
     <% @cart_items.each do |cart| %>
       <tr>
         <td><%= cart.item.name %></td>
-        <td><%= cart.item.with_tax_price %></td>
+        <td><%= cart.item.tax_included_price %></td>
         <td><%= cart.amount %></td>
         <td><%= cart.subtotal %></td>
       </tr>

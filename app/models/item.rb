@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   validates :price, presence: true
   validates :image, presence: true
 
-  def with_tax_price
+  def tax_included_price
     (price * 1.1).floor
   end
 end

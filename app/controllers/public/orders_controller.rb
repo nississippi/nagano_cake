@@ -30,7 +30,7 @@ class Public::OrdersController < ApplicationController
     end
     #情報に不足があれば入力ページに戻す
     #saveメソッドは
-    if not  @order.shipping_postal_code.presence && @order.shipping_address.presence && 
+    if not  @order.shipping_postal_code.presence && @order.shipping_address.presence &&
       @order.shipping_name.presence
       redirect_to new_order_path
     end
@@ -46,7 +46,7 @@ class Public::OrdersController < ApplicationController
           order_detail = OrderDetail.new
           order_detail.item_id = cart.item_id
           order_detail.order_id = @order.id
-          order_detail.tax_included_price = cart.item.with_tax_price
+          order_detail.tax_included_price = cart.item.tax_included_price
           order_detail.amount = cart.amount
           order_detail.save
         end
@@ -76,6 +76,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
+    @order = current_customer.orders.find(params[:id])
+    @order_details = @order.order_details.all
+    @total = 0
   end
 
   private
