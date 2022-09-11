@@ -52,7 +52,7 @@
       <td><%= order.amount %></td>
       <td><%= order.subtotal %></td>
       <td>
-        <%= form_with model: order, url: admin_order_path(order), method: :patch, local: true do |f| %>
+        <%= form_with model: order, url: admin_order_detail_path(order), method: :patch, local: true do |f| %>
           <%= f.select :crafting_status,
           OrderDetail.crafting_statuses.keys.map {|k| [I18n.t("enums.order_detail.crafting_status.#{k}"), k]} %>
           <%= f.submit "更新" , class: "btn btn-outline-success" %>
