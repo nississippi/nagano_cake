@@ -24,9 +24,10 @@
   <tr>
     <th>注文ステータス</th>
     <td>
-      <%= form_with model: @order, url: admin_order_path, method: :patch, local: true do |f| %>
-      <!-- f.select カラム名, ["表示する文字”, "データベースに登録する値”] -->
-        <%= f.select :order_status, Order.order_statuses_i18n.invert.keys %>
+      <%= form_with model: @order, url: admin_order_path(@order), method: :patch, local: true do |f| %>
+      <!--option_for_selectだと選択済の内容を次の画面に引き継げない -->
+        <!-- f.select :order_status, options_for_select(Order.order_statuses_i18n.invert), :prompt => @order.order_status -->
+        <%= f.select :order_status, Order.order_statuses.keys.map {|k| [I18n.t("enums.order.order_status.#{k}"), k]} %>
         <%= f.submit "更新" , class: "btn btn-outline-success" %>
       <% end %>
     </td>
@@ -51,8 +52,14 @@
       <td><%= order.amount %></td>
       <td><%= order.subtotal %></td>
       <td>
+        <%= form_with model: order, url: admin_order_path(order), method: :patch, local: true do |f| %>
+          <%= f.select :crafting_status,
+          OrderDetail.crafting_statuses.keys.map {|k| [I18n.t("enums.order_detail.crafting_status.#{k}"), k]} %>
+          <%= f.submit "更新" , class: "btn btn-outline-success" %>
+        <% end %>
       </td>
       <% @total += order.subtotal %>
+      <% @total_amount += order.amount %>
     </tr>
     <% end %>
   </tbody>
