@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     get 'customers/information/edit' => 'customers#edit'
     patch 'customers/information' => 'customers#update'
     get 'customers/unsubscribe'
-    get 'customers/withdraw'
+    patch 'customers/withdraw'
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'cart_items_destroy_all'
     resources :cart_items, only: [:create, :index, :update, :create, :destroy]
     #上記２行の順番が入れ替わると、"destroy_all"というidが見つからないよ！というエラーが出る。:idを含むルートは特定のルートよりも後に書く。
