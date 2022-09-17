@@ -9,6 +9,8 @@
         class: "btn btn-lg btn-white rounded-circle shadow" %>
       </div>
     </div>
+  </div>
+  <div class = "row">
     <div class = "col-sm-12 col-md-12 col-lg-10 mx-auto">
       <table class="table table-hover table-inverse">
         <thead>
@@ -40,6 +42,12 @@
           <% end %>
         </tbody>
       </table>
+
+    </div>
+  </div>
+  <div class = "row">
+    <div class = "mx-auto">
+      <%= paginate @items %>
     </div>
   </div>
 </div>
