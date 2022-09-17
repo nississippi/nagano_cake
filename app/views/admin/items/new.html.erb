@@ -1,30 +1,79 @@
-<h1>商品新規登録</h1>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-sm-12 col-md-12 col-lg-10 mx-auto">
+      <h5 class = "m-5"><span class = "bg-light">　商品新規登録　</span></h5>
+    </div>
+    </div>
+  </div>
 
-<div class="error-explanation">
-  <% if @item.errors.any? %>
-    <h3><%= @item.errors.count %>errors prohibited this obj from being saved:</h3>
-    <ul>
-      <% @item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
+  <div class = "row">
+    <div class = "col-sm-12 col-md-12 col-lg-10 mx-auto">
+      <div class="error-explanation">
+        <% if @item.errors.any? %>
+          <h3><%= @item.errors.count %>errors prohibited this obj from being saved:</h3>
+          <ul>
+            <% @item.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class = "row">
+    <div class = "col-sm-8 col-md-8 col-lg-6 mx-auto">
+    <%= form_with model: @item, url: admin_items_path do |f| %>
+      <table class ="mx-auto">
+        <tbody>
+          <tr>
+            <th><%= f.label :'商品画像' %></th>
+            <td>
+              <%= f.file_field :image, accept: "image/*" %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= f.label :'商品名' %></th>
+            <td>
+              <%= f.text_field :name, class:"form-control", placeholder:"商品名" %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= f.label :'商品説明' %></th>
+            <td>
+              <%= f.text_area :introduction, class:"form-control", rows:"8", placeholder:"ここに説明文を記述します" %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= f.label :'ジャンル' %></th>
+            <td>
+              <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "-- 選択してください --" %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= f.label :'税抜価格' %></th>
+            <td>
+              <%= f.text_field :price, class:"form-control", placeholder:"1000" %>
+            </td>
+            <td>円</td>
+          </tr>
+          <tr>
+            <th><%= f.label :'販売ステータス　' %></th>
+            <td>
+              <%= f.radio_button :is_active, :true %>
+              <%= f.label :is_active, "販売中" %>
+              <%= f.radio_button :is_active, :false %>
+              <%= f.label :is_active, "販売停止中" %>
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            <td class="text-center">
+              <%= f.submit '新規登録', class:"btn btn-success mt-4" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+    </div>
+  </div>
 </div>
-
-<%= form_with model: @item, url: admin_items_path do |f| %>
-  <%= f.label :'商品画像' %>
-  <%= f.file_field :image, accept: "image/*", class: "w-100" %>
-  <%= f.label :'商品名' %>
-  <%= f.text_field :name, class:"form-control", placeholder:"商品名" %>
-  <%= f.label :'商品説明' %>
-  <%= f.text_area :introduction, class:"form-control", rows:"8", placeholder:"ここに説明文を記述します" %>
-  <%= f.label :'税抜価格' %>
-  <%= f.text_field :price, class:"form-control", placeholder:"1000" %>円
-  <%= f.label :'ジャンル' %>
-  <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => true %>
-  <%= f.radio_button :is_active, :true %>
-  <%= f.label :is_active, "販売中" %>
-  <%= f.radio_button :is_active, :false %>
-  <%= f.label :is_active, "販売停止中" %>
-  <%= f.submit '新規登録', class:"btn btn-lg btn-block btn-info mt-4" %>
-<% end %>
