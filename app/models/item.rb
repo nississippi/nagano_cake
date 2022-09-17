@@ -13,4 +13,8 @@ class Item < ApplicationRecord
   def tax_included_price
     (price * 1.1).floor
   end
+
+  def get_image
+    image.variant(resize: "300").processed
+  end
 end
