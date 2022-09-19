@@ -14,7 +14,12 @@ class Item < ApplicationRecord
     (price * 1.1).floor
   end
 
+#詳細画面用（縦横比維持）
   def get_image(width, height)
     image.variant(resize_to_limit: [width, height]).processed
+  end
+#サムネイル用（トリミング）
+  def thumbnail_image(width, height)
+    image.variant(resize_to_fill: [width, height]).processed
   end
 end

@@ -1,6 +1,7 @@
 class Public::HomesController < ApplicationController
   def top
-    @items = Item.where(is_active: true).last(4)
+    #.orderと.firstの記述順が逆だとうまくいかない
+    @items = Item.where(is_active: true).order(id: "DESC").first(4)
   end
 
   def about
