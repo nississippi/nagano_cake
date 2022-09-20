@@ -19,6 +19,9 @@
             <div class = "collapse navbar-collapse">
               <% if customer_signed_in? %>
                 <li>
+                  ようこそ、<%= current_customer.last_name %>さん！
+                </li>
+                <li>
                   <%= link_to "マイページ", customers_my_page_path, class: "btn btn-light mx-3", style: "width: 110px;" %>
                 </li>
                 <li>

@@ -1,27 +1,43 @@
-<h2>Log in</h2>
-
-<%= form_with model: @customer, url: customer_session_path do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-sm-12 col-md-12 col-lg-10">
+      <h5 class = "m-5"><span class = "bg-light">　ログイン　</span></h5>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
 
-会員登録がお済みでない方
-<%= link_to "こちら", new_customer_registration_path %>から新規登録を行ってください。
+  <div class = "row">
+    <div class = "offset-lg-1 col-sm-12 col-md-12 col-lg-10">
+      <h6 class = "ml-5"><span class = "bg-light">　会員の方はこちらからログイン　</span></h6>
+    </div>
+    <div class = "offset-lg-1 col-sm-12 col-md-12 col-lg-10">
+      <div class="error-explanation ml-5">
+        <%= render "public/shared/error_messages", resource: resource %>
+      </div>
+      <table class = "table table-borderless ml-5">
+        <tbody>
+          <%= form_with model: @customer, url: customer_session_path do |f| %>
+          <tr>
+            <th>メールアドレス</th>
+            <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class:"col-lg-8" %></td>
+          </tr>
+          <tr>
+            <th>パスワード</th>
+            <td>
+              <%= f.password_field :password, autocomplete: "current-password", class:"col-lg-8" %>
+            </td>
+          <tr>
+            <th></th>
+            <td><%= f.submit "　ログイン　", class:"btn btn-primary" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class = "row">
+    <div class = "offset-1 col-sm-12 col-md-12 col-lg-10">
+      <h6 class = "ml-5"><span class = "bg-light">　会員登録がお済みでない方　</span></h6>
+      <%= link_to "こちら　", new_customer_registration_path, class:"ml-5" %>から新規登録を行ってください。
+    </div>
+  </div>
+</div>
