@@ -11,6 +11,7 @@ class Public::CartItemsController < ApplicationController
       @cart_item.save
     end
     redirect_to cart_items_path
+    #カートに追加後、商品詳細画面を表示したままにするならredirect_to item_path(@cart_item.item_id)
     #saveやupdateは処理をしてtrueやfalseを返すメソッドなので、いきなりifの中に書いても処理できる
   end
 

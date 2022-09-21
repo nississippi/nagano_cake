@@ -1,23 +1,35 @@
-<h1>ショッピングカート</h1>
-<%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete, class:"btn btn-sm btn-danger" %>
-<table class="table table-hover table-inverse">
-  <thead>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-sm-12 col-md-12 col-lg-10">
+      <h5 class = "mx-5 mt-5"><span class = "bg-light">　ショッピングカート　</span></h5>
+      <%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete,
+      class:"btn btn-sm btn-danger" %>
+    </div>
+  </div>
+</div>
+
+<table class="table table-bordered">
+  <thead class ="thead-light">
     <tr>
       <th>商品名</th>
       <th>単価(税込)</th>
       <th>数量</th>
       <th>小計</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @cart_items.each do |cart_item| %>
       <tr>
-        <td><%= link_to cart_item.item.name, item_path(cart_item.item_id) %></td>
-        <td><%= cart_item.item.with_tax_price %></td>
+        <td>
+          <%= image_tag cart_item.item.thumbnail_image(75,50) %>
+          <%= link_to cart_item.item.name, item_path(cart_item.item_id) %>
+        </td>
+        <td><%= cart_item.item.tax_included_price %></td>
         <td>
           <%= form_with model: cart_item, url: cart_item_path(cart_item.id), method: :patch do |f| %>
             <%= f.select :amount, *[1..10], :prompt => cart_item.amount %>
-            <%= f.submit '変更', class:"btn btn-lg btn-block btn-info mt-4" %>
+            <%= f.submit '変更', class:"btn btn-sm btn-success" %>
           <% end %>
         </td>
         <td><%= cart_item.subtotal %></td>
@@ -26,7 +38,15 @@
       <% @total += cart_item.subtotal %>
       <!-- %=だと各段階での合計額が表示されてしまう-->
     <% end %>
-    <tr><td>合計金額<%= @total %>円</td></tr>
+  </tbody>
+</table>
+
+<table class = "table table-bordered">
+  <tbody>
+    <tr>
+      <th class ="bg-light">合計金額</th>
+      <td><%= @total %>円</td>
+    </tr>
   </tbody>
 </table>
 
