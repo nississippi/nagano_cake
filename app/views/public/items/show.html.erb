@@ -1,14 +1,17 @@
-<h1>商品詳細</h1>
-
-
-<%= image_tag @item.image %>
-<%= @item.name %>
-<%= @item.introduction %>
-<%= (@item.price * 1.1).floor %>
-
-<%= form_with model: @cart_item do |f| %>
-
-  <%= f.hidden_field :item_id, :value => @item.id %>
-  <%= f.select :amount, *[1..10], :prompt => true%>
-  <%= f.submit 'カートに入れる', class:"btn btn-lg btn-block btn-info mt-4" %>
-<% end %>
+<div class = "container mt-5">
+  <div class = "row">
+    <div class = "offset-lg-2 col-lg-5">
+      <%= image_tag @item.get_image(300,300) %>
+    </div>
+    <div class = "col-lg-5">
+      <h5 class="font-weight-bold"><%= @item.name %></h5>
+      <%= @item.introduction %>
+      <h5 class = "mt-3">¥<%= (@item.price * 1.1).floor %></h5>(税込)
+      <%= form_with model: @cart_item do |f| %>
+        <%= f.hidden_field :item_id, :value => @item.id %>
+        <%= f.select :amount, *[1..10], :prompt => "個数選択" %>
+        <%= f.submit 'カートに入れる', class:"btn btn-sm btn-success ml-5" %>
+      <% end %>
+    </div>
+  </div>
+</div>
