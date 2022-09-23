@@ -13,9 +13,9 @@ Rails.application.routes.draw do
     root to: "homes#top"
     get 'about' => 'homes#about', as: 'about'
     resources :addresses, except: [:new, :show]
-    resources :orders, only: [:new, :create, :index, :show]
-    post 'orders/confirm' => 'orders#confirm'
     get 'orders/complete' => 'orders#complete'
+    post 'orders/confirm' => 'orders#confirm'
+    resources :orders, only: [:new, :create, :index, :show]
     get 'customers/my_page' => 'customers#show'
     get 'customers/information/edit' => 'customers#edit'
     patch 'customers/information' => 'customers#update'
