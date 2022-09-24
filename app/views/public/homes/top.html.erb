@@ -1,7 +1,7 @@
 <div class = "container">
   <div class = "row">
-    <div class = "col-sm-12 col-lg-6">
-      <%= image_tag "sweets.jpeg" %>
+    <div class = "col-sm-12 col-lg-10">
+      <%= image_tag "sweets.jpeg", width: '100%' %>
     </div>
   </div>
   <div class = "row">
@@ -14,9 +14,11 @@
   </div>
   <div class = "row">
     <% @items.each do |item| %>
-      <%= image_tag item.thumbnail_image(150, 150) %>
-      <%= link_to item.name, item_path(item.id) %>
-      ¥<%= (item.price*1.1).floor %>
+      <div class = "ml-5">
+        <%= image_tag item.thumbnail_image(150, 150) %><br>
+        <%= link_to item.name, item_path(item.id) %><br>
+        ¥<%= (item.price*1.1).floor %>
+      </div>
     <% end %>
   </div>
 </div>

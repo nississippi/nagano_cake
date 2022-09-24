@@ -2,13 +2,16 @@
   <div class = "row">
     <div class = "col-lg-10">
       <h5 class = "mx-5 mt-5"><span class = "bg-light">　ショッピングカート　</span></h5>
-      <%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete,
-      class:"btn btn-sm btn-danger ml-auto" %>
+      <!-- link_toに直接位置関係のクラス指定をするのはあまり良くない-->
+      <div class="text-right mb2">
+        <%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete,
+        class:"btn btn-sm btn-danger ml-auto" %>
+      </div>
     </div>
   </div>
   <div class = "row">
     <div class = "col-sm-12 col-md-12 col-lg-10">
-      <table class="table table-bordered border-primary">
+      <table class="table table-bordered border border-dark">
         <thead class ="thead-light">
           <tr>
             <th>商品名</th>
@@ -58,7 +61,7 @@
     </div>
   </div>
   <div class = "row">
-    <div class = "col-lg-10">
+    <div class = "col-lg-10 text-center">
       <%= link_to "情報入力へ進む", new_order_path, class:"btn btn-success mx-auto" %>
     </div>
   </div>
