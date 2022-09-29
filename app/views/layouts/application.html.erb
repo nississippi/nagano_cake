@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <!-- assetsの中にあるcssを参照するにはlink_tag、javascriptの中にあるcssを参照するにはpack_tag-->
+    <!--Bootstrapとcssを併用する場合はjavascriptの中にあるcssを参照することになるのでpack_tag一択-->
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
