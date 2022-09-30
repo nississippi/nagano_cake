@@ -1,27 +1,31 @@
 <div class = "container">
-  <div class = "row">
-    <div class = "col-lg-6">
-      <div class="css"></div>
-    </div>
-  </div>
+
   <div class = "row">
     <div class = "offset-lg-3"></div>
-    <div class = "col-lg-6">
-      <%= image_tag "sweets.jpeg", width: '100%' %>
-      <p class="text-center">ようこそ、ながのCAKEへ！<br>
-      このサイトは、ケーキ販売のECサイトになります。<br>
-      会員でない方も商品の閲覧はできますが、<br>
-      購入には会員登録が必要になります。</p>
-    </div>
-    <div class = "offset-lg-3"></div>
-  </div>
-  <div class = "row">
-    <% @items.each do |item| %>
-      <div class = "ml-5">
-        <%= image_tag item.thumbnail_image(200, 150) %><br>
-        <%= link_to item.name, item_path(item.id) %><br>
-        ¥<%= (item.price*1.1).floor %>
+    <div class = "col-lg-6 mt-5">
+      <div class="card text-white">
+        <%= image_tag "sweets.jpeg", class:"card-img" %>
+        <div class="card-img-overlay">
+          <p class="card-text text-center">
+            ようこそ、ながのCAKEへ！<br>
+            このサイトは、ケーキ販売のECサイトになります。<br>
+            会員でない方も商品の閲覧はできますが、<br>
+            購入には会員登録が必要になります。
+          </p>
+        </div>
       </div>
-    <% end %>
+    </div>
+    <div class = "offset-lg-3"></div>
+  </div>
+  <div class = "row">
+    <div class = "col-lg-10 d-flex mt-5 mx-auto">
+      <% @items.each do |item| %>
+        <div class = "mx-4">
+          <%= image_tag item.thumbnail_image(200, 150) %><br>
+          <%= link_to item.name, item_path(item.id) %><br>
+          ¥<%= (item.price*1.1).floor %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
