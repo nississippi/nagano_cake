@@ -49,7 +49,7 @@
   </div>
   <div class = "row">
     <div class = "col-lg-3">
-      <%= link_to "買い物を続ける", items_path, class:"btn btn-sm btn-primary ml-5 mt-3" %>
+      <%= link_to "買い物を続ける", root_path, class:"btn btn-sm btn-primary ml-5 mt-3" %>
     </div>
     <div class = "offset-lg-3 col-lg-4">
       <table class = "table table-bordered">
@@ -64,7 +64,9 @@
   </div>
   <div class = "row">
     <div class = "col-lg-10 text-center">
-      <%= link_to "情報入力へ進む", new_order_path, class:"btn btn-success" %>
+      <% if @cart_items.present? %>
+        <%= link_to "情報入力へ進む", new_order_path, class:"btn btn-success" %>
+      <% end %>
     </div>
   </div>
 </div>
