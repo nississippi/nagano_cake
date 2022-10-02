@@ -19,36 +19,36 @@
           <% @cart_items.each do |cart| %>
             <tr>
               <td><%= cart.item.name %></td>
-              <td><%= cart.item.tax_included_price %></td>
+              <td><%= cart.item.tax_included_price.to_s(:delimited) %></td>
               <td><%= cart.amount %></td>
-              <td><%= cart.subtotal %></td>
+              <td><%= cart.subtotal.to_s(:delimited) %></td>
             </tr>
             <% @total += cart.subtotal %>
           <% end %>
         </tbody>
       </table>
     </div>
-    <div class = "col-lg-6">
+    <div class = "col-lg-3">
       <table class = "table table-bordered">
         <thead class="thead-light">
           <tr>
             <th>送料</th>
-            <td><%= @order.postage %></td>
+            <td><%= @order.postage.to_s(:delimited) %></td>
           </tr>
           <tr>
             <th>商品合計</th>
-            <td><%= @total %></td>
+            <td><%= @total.to_s(:delimited) %></td>
           </tr>
           <tr>
             <th>請求金額</th>
-            <td><%= @total + @order.postage %></td>
+            <td><%= (@total + @order.postage).to_s(:delimited) %></td>
           </tr>
         </thead>
       </table>
     </div>
   </div>
   <div class = "row">
-    <div class = "col-lg-10">
+    <div class = "col-lg-5">
       <table class = "table table-borderless">
         <tr>
           <th>支払方法</th>
@@ -63,6 +63,8 @@
           </td>
         </tr>
       </table>
+    </div>
+    <div class = "col-lg-9 text-center">
       <%= form_with model: @order, url: orders_path, method: :post do |f| %>
         <%= f.hidden_field :shipping_name, :value => @order.shipping_name %>
         <%= f.hidden_field :shipping_address, :value => @order.shipping_address %>

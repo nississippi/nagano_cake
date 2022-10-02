@@ -1,11 +1,11 @@
 <div class = "container">
   <div class = "row">
-    <div class = "col-sm-6 col-md-6 col-lg-5">
+    <div class = "col-lg-5">
       <h5 class = "my-5"><span class = "bg-light">　注文履歴詳細　</span></h5>
     </div>
   </div>
   <div class = "row">
-    <div class = "col-sm-12 col-md-12 col-lg-10">
+    <div class = "col-lg-10">
       <table class = "mb-5">
         <tr>
           <th>購入者</th>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class = "row">
-    <div class = "col-sm-12 col-md-12 col-lg-8">
+    <div class = "col-lg-8">
       <table class="table">
         <thead class = "thead-light">
           <tr>
@@ -57,9 +57,9 @@
           <% @order_details.each do |order| %>
           <tr>
             <td><%= order.item.name %></td>
-            <td><%= order.item.tax_included_price %></td>
+            <td><%= order.item.tax_included_price.to_s(:delimited) %></td>
             <td><%= order.amount %></td>
-            <td><%= order.subtotal %></td>
+            <td><%= order.subtotal.to_s(:delimited) %></td>
             <td>
               <%= form_with model: order, url: admin_order_detail_path(order), method: :patch, local: true do |f| %>
                 <%= f.select :crafting_status,
@@ -78,7 +78,7 @@
       <table>
         <tr>
           <th>商品合計</th>
-          <td><%= @total %>円</td>
+          <td><%= @total.to_s(:delimited) %>円</td>
         </tr>
         <tr>
         <tr>
@@ -87,7 +87,7 @@
         </tr>
         <tr>
           <th>請求金額合計　</th>
-          <td><%= @total + @order.postage %>円</td>
+          <td><%= (@total + @order.postage).to_s(:delimited) %>円</td>
         </tr>
       </table>
     </div>

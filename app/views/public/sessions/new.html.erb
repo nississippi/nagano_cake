@@ -1,15 +1,15 @@
 <div class = "container">
   <div class = "row">
-    <div class = "col-sm-12 col-md-12 col-lg-10">
+    <div class = "col-lg-10">
       <h5 class = "m-5"><span class = "bg-light">　ログイン　</span></h5>
     </div>
   </div>
 
   <div class = "row">
-    <div class = "offset-lg-1 col-sm-12 col-md-12 col-lg-10">
-      <h6 class = "ml-5"><span class = "bg-light">　会員の方はこちらからログイン　</span></h6>
+    <div class = "offset-lg-1 col-lg-10">
+      <h6><span class = "bg-light">　会員の方はこちらからログイン　</span></h6>
     </div>
-    <div class = "offset-lg-1 col-sm-12 col-md-12 col-lg-10">
+    <div class = "offset-lg-2 col-lg-7">
       <div class="error-explanation ml-5">
         <%= render "public/shared/error_messages", resource: resource %>
       </div>
@@ -17,13 +17,13 @@
         <tbody>
           <%= form_with model: @customer, url: customer_session_path do |f| %>
           <tr>
-            <th>メールアドレス</th>
-            <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class:"col-lg-8" %></td>
+            <th style="width: 30%">メールアドレス</th>
+            <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %></td>
           </tr>
           <tr>
             <th>パスワード</th>
             <td>
-              <%= f.password_field :password, autocomplete: "current-password", class:"col-lg-8" %>
+              <%= f.password_field :password, autocomplete: "current-password", class:"form-control" %>
             </td>
           <tr>
             <th></th>

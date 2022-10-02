@@ -6,11 +6,11 @@
     <div class = "col-lg-5">
       <h5 class="font-weight-bold"><%= @item.name %></h5>
       <%= @item.introduction %>
-      <h5 class = "mt-3">¥<%= (@item.price * 1.1).floor %></h5>(税込)
+      <h5 class = "my-3">¥<%= @item.tax_included_price.to_s(:delimited) %><small>(税込)</small></h5>
       <%= form_with model: @cart_item do |f| %>
         <%= f.hidden_field :item_id, :value => @item.id %>
         <%= f.select :amount, *[1..10], :prompt => "個数選択" %>
-        <%= f.submit 'カートに入れる', class:"btn btn-sm btn-success ml-5" %>
+        <%= f.submit 'カートに入れる', class:"btn btn-sm btn-success ml-4" %>
       <% end %>
     </div>
   </div>

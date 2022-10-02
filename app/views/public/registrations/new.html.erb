@@ -16,55 +16,55 @@
           <tr>
             <th>氏名</th>
             <td>（姓）</td>
-            <td><%= f.text_field :last_name %></td>
+            <td><%= f.text_field :last_name, class: "form-control" %></td>
             <td>（名）</td>
-            <td><%= f.text_field :first_name %></td>
+            <td><%= f.text_field :first_name, class: "form-control" %></td>
           </tr>
           <tr>
             <th>フリガナ</th>
             <td>（セイ）</td>
-            <td><%= f.text_field :last_name_kana %></td>
+            <td><%= f.text_field :last_name_kana, class: "form-control" %></td>
             <td>（メイ）</td>
-            <td><%= f.text_field :first_name_kana %></td>
+            <td><%= f.text_field :first_name_kana, class: "form-control" %></td>
           </tr>
           <tr>
             <th>郵便番号</th>
             <td></td>
-            <td><%= f.text_field :postal_code %></td>
+            <td><%= f.text_field :postal_code, class: "form-control" %></td>
           </tr>
           <tr>
             <th>住所</th>
             <td></td>
-            <td colspan="3"><%= f.text_field :address %></td>
+            <td colspan="3"><%= f.text_field :address, class: "form-control" %></td>
           </tr>
           <tr>
             <th>電話番号</th>
             <td></td>
-            <td><%= f.text_field :telephone_number %></td>
+            <td><%= f.text_field :telephone_number, class: "form-control" %></td>
           </tr>
           <tr>
             <th>メールアドレス</th>
             <td></td>
-            <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+            <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %></td>
           </tr>
           <tr>
             <th>パスワード（６文字以上）</th>
             <td></td>
             <td>
-              <%= f.password_field :password, autocomplete: "new-password" %>
+              <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
             </td>
           </tr>
           <tr>
             <th>パスワード（確認用）</th>
             <td></td>
             <td>
-              <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
             </td>
           </tr>
           <tr>
             <th></th>
             <td></td>
-            <td><%= f.submit "新規登録", class:"btn btn-success" %></td>
+            <td class="text-center"><%= f.submit "　　新規登録　　", class:"btn btn-success mx-auto" %></td>
           </tr>
           <% end %>
         </tbody>
@@ -72,9 +72,11 @@
     </div>
   </div>
   <div class = "row">
-    <div class = "col-sm-12 col-md-12 col-lg-10">
-      <h5 class = "m-5"><span class = "bg-light">　すでに登録済みの方　</span></h5>
-      <%= link_to "こちら", customer_session_path %>からログインしてください
+    <div class = "col-lg-10">
+      <h5 class="mb-2"><span class = "bg-light">　すでに登録済みの方　</span></h5>
+      <div class ="ml-5">
+        <%= link_to "こちら", customer_session_path %>　からログインしてください。
+      </div>
     </div>
   </div>
 </div>

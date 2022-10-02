@@ -5,10 +5,10 @@
     </div>
   </div>
   <div class = "row">
-    <div class = "col-lg-10">
+    <div class = "offset-lg-1 col-lg-10">
       <h6 class = "mt-2"><strong>支払方法</strong></h6>
       <%= form_with model: @order, url: orders_confirm_path, method: :post do |f| %>
-      <div class = "ml-5">
+      <div>
         <%= f.radio_button :payment, Order.payments.key(0) %>
         <%= f.label :payment, Order.payments_i18n[:credit_card] %><br>
         <%= f.radio_button :payment, Order.payments.key(1) %>
@@ -16,7 +16,7 @@
       </div>
 
       <h6><strong>お届け先</strong></h6>
-      <div class = "ml-5">
+      <div>
         <%= f.radio_button :select_address, 0 %>
         <%= f.label "ご自身の住所" %>
         <div class = "ml-3 mb-2">
@@ -30,7 +30,7 @@
         <div class = "ml-3 mb-2">
           <%= f.select :address_id,
           options_from_collection_for_select(current_customer.addresses.all,
-          :id, :address_display, class:"form-control") %>
+          :id, :address_display, class:"form-select") %>
         </div>
 
         <%= f.radio_button :select_address, 2 %>
@@ -39,14 +39,15 @@
           <table class="table table-borderless">
             <tbody>
               <tr>
-                <th><%= f.label :'郵便番号（ハイフンなし）' %></th>
-                <td>
+                <th style="width: 30%"><%= f.label :'郵便番号（ハイフンなし）' %></th>
+                <td style="width: 30%">
                   <%= f.text_field :shipping_postal_code, class:"form-control", placeholder:"郵便番号" %>
                 </td>
+                <td></td>
               </tr>
               <tr>
                 <th><%= f.label :'住所' %></th>
-                <td>
+                <td colspan="2">
                   <%= f.text_field :shipping_address, class:"form-control", placeholder:"住所" %>
                 </td>
               </tr>
@@ -55,13 +56,15 @@
                 <td>
                   <%= f.text_field :shipping_name, class:"form-control", placeholder:"宛名" %>
                 </td>
+                <td></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
-        <%= f.submit '確認画面へ進む', class:"btn btn-success mt-4" %>
+    </div>
+    <div class = "offset-lg-1 col-lg-10 text-center">
+        <%= f.submit '確認画面へ進む', class:"btn btn-primary mt-4" %>
       <% end %>
     </div>
   </div>

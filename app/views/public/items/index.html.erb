@@ -3,14 +3,14 @@
 <div class = "container">
   <div class = "row">
     <div class = "offset-lg-2 col-lg-10">
-      <h3>商品一覧</h3><h6>全<%= @items.count %>件</h6>
+      <h3 class="my-2">商品一覧<small>(全<%= @items.count %>件)</small></h3>
     </div>
     <div class = "offset-lg-2 col-lg-10 d-flex flex-wrap">
       <% @items.each do |item| %>
         <div class = "ml-5">
           <%= image_tag item.thumbnail_image(180, 120) %><br>
-          <%= link_to item.name, item_path(item.id) %><br>
-          ¥<%= (item.price*1.1).floor %>
+          <%= link_to item.name, item_path(item.id), class:"text-reset" %><br>
+          ¥<%= item.tax_included_price.to_s(:delimited) %>
         </div>
       <% end %>
     </div>

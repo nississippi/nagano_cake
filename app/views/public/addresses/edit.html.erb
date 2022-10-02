@@ -12,22 +12,24 @@
       <table class ="table table-borderless">
         <thead>
           <tr>
-            <th><%= f.label :'郵便番号（ハイフンなし）' %></th>
-            <td>
+            <th class = "col-lg-3"><%= f.label :'郵便番号（ハイフンなし）' %></th>
+            <td class = "col-lg-3">
               <%= f.text_field :postal_code, class:"form-control", placeholder:"0000000" %>
             </td>
           </tr>
           <tr>
             <th><%= f.label :'住所' %></th>
-            <td>
+            <td colspan="2">
               <%= f.text_field :address, class:"form-control", placeholder:"住所" %>
             </td>
+            <td></td>
           </tr>
           <tr>
             <th><%= f.label :'宛名' %></th>
             <td>
               <%= f.text_field :name, class:"form-control", placeholder:"宛名" %>
             </td>
+            <td></td>
             <td>
               <%= f.submit '変更内容を保存', class:"btn btn-success" %>
             </td>

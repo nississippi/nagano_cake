@@ -1,12 +1,12 @@
 <div class = "container">
   <div class = "row">
-    <div class = "col-sm-12 col-md-12 col-lg-10">
+    <div class = "col-lg-10">
       <h5 class = "m-5"><span class = "bg-light">　<%= (@customer.full_name)%>さんの会員情報編集　</span></h5>
     </div>
   </div>
 
   <div class = "row">
-    <div class = "col-sm-12 col-md-10 col-lg-6">
+    <div class = "col-lg-6">
       <div class="error-explanation">
         <% if @customer.errors.any? %>
           <h3><%= @customer.errors.count %>errors prohibited this obj from being saved:</h3>
@@ -26,29 +26,29 @@
           <%= form_with model: @customer, url: admin_customer_path(@customer.id) do |f| %>
           <tr>
             <th>氏名</th>
-            <td><%= f.text_field :last_name %></td>
-            <td><%= f.text_field :first_name %></td>
+            <td><%= f.text_field :last_name, class: "form-control" %></td>
+            <td><%= f.text_field :first_name, class: "form-control" %></td>
           </tr>
           <tr>
             <th>フリガナ</th>
-            <td><%= f.text_field :last_name_kana %></td>
-            <td><%= f.text_field :first_name_kana %></td>
+            <td><%= f.text_field :last_name_kana, class: "form-control" %></td>
+            <td><%= f.text_field :first_name_kana, class: "form-control" %></td>
           </tr>
           <tr>
             <th>郵便番号</th>
-            <td><%= f.text_field :postal_code %></td>
+            <td><%= f.text_field :postal_code, class: "form-control" %></td>
           </tr>
           <tr>
             <th>住所</th>
-            <td><%= f.text_field :address %></td>
+            <td colspan="2"><%= f.text_field :address, class: "form-control" %></td>
           </tr>
           <tr>
             <th>電話番号</th>
-            <td><%= f.text_field :telephone_number %></td>
+            <td><%= f.text_field :telephone_number, class: "form-control" %></td>
           </tr>
           <tr>
             <th>メールアドレス</th>
-            <td><%= f.email_field :email, autofocus: true, autocomplete: "email" %></td>
+            <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %></td>
           </tr>
           <tr>
             <th>会員ステータス　　</th>
@@ -61,7 +61,7 @@
           </tr>
           <tr>
             <th></th>
-            <td><%= f.submit "変更を保存", class:"btn btn-success" %></td>
+            <td><%= f.submit "変更を保存", class:"btn btn-success btn-block" %></td>
           </tr>
           <% end %>
         </tbody>
