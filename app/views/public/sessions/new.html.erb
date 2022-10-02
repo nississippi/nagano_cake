@@ -13,25 +13,25 @@
       <div class="error-explanation ml-5">
         <%= render "public/shared/error_messages", resource: resource %>
       </div>
-      <table class = "table table-borderless ml-5">
-        <tbody>
-          <%= form_with model: @customer, url: customer_session_path do |f| %>
-          <tr>
-            <th style="width: 30%">メールアドレス</th>
-            <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %></td>
-          </tr>
-          <tr>
-            <th>パスワード</th>
-            <td>
-              <%= f.password_field :password, autocomplete: "current-password", class:"form-control" %>
-            </td>
-          <tr>
-            <th></th>
-            <td><%= f.submit "　ログイン　", class:"btn btn-primary" %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <%= form_with model: @customer, url: customer_session_path do |f| %>
+        <table class = "table table-borderless ml-5">
+          <tbody>
+            <tr>
+              <th style="width: 30%">メールアドレス</th>
+              <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %></td>
+            </tr>
+            <tr>
+              <th>パスワード</th>
+              <td>
+                <%= f.password_field :password, autocomplete: "current-password", class:"form-control" %>
+              </td>
+            <tr>
+              <th></th>
+              <td><%= f.submit "　ログイン　", class:"btn btn-primary" %></td>
+            </tr>
+          </tbody>
+        </table>
+      <% end %>
     </div>
   </div>
   <div class = "row">
