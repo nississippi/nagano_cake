@@ -1,33 +1,32 @@
 <div class = "container">
   <div class = "row">
-    <div class = "col-sm-12 col-md-12 col-lg-8 mx-auto">
+    <div class = "col-lg-8 mx-auto">
       <h5 class = "m-5"><span class = "bg-light">　商品詳細　</span></h5>
     </div>
   </div>
 
   <div class = "row">
-    <div class = "col-lg-2"></div>
-    <div class = "col-sm-4 col-md-4 col-lg-3">
+    <div class = "offset-lg-1 col-lg-4">
       <%= image_tag @item.get_image(300, 300) %>
     </div>
-    <div class = "col-sm-8 col-md-8 col-lg-5">
-      <table class ="mx-auto">
+    <div class = "col-lg-6">
+      <table>
         <tbody>
           <tr>
-            <th>商品名</th>
+            <th class="align-top">商品名</th>
             <td><%= @item.name %></td>
           </tr>
           <tr>
-            <th>商品説明</th>
+            <th class="align-top">商品説明</th>
             <td><%= @item.introduction %></td>
           </tr>
           <tr>
-            <th>ジャンル</th>
+            <th class="align-top">ジャンル</th>
             <td><%= @item.genre.name %></td>
           </tr>
           <tr>
-            <th>
-              税込価格<br>
+            <th class="align-top">
+              税込価格　<br>
               （税抜価格）
             </th>
             <td>
@@ -36,7 +35,7 @@
             </td>
           </tr>
           <tr>
-            <th>販売ステータス　</th>
+            <th class="text-nowrap align-top">販売ステータス　</th>
             <td>
               <% if @item.is_active == true %>
                 <p class="text-success">販売中</p>

@@ -10,8 +10,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_out_path_for(resource)
-    root_path
+  #ログアウト時の画面遷移は上と同じ書き方ではエラー出た
+  def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope == :admin
+      new_admin_session_path
+    else
+      root_path
+    end
   end
 
   protected
